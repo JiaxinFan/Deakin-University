@@ -24,38 +24,38 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * BOSS机体
+ * BOSS body
  */
 public class BossPlane extends EnemyPlane {
-    private static int currentCount = 0; // 总数量
+    private static int currentCount = 0; // The total amount
     private static int sumCount = GameConstant.BOSSPLANE_COUNT;
     private Bitmap boosPlane;
     private Bitmap boosPlaneBomb;
     private Bitmap bossPlane_crazy;
-    private int direction; // 移动方向
-    private int interval; // 射击间隔
-    private float leftBorder; // 移动的左边界
-    private float rightBorder; // 移动的右边界
-    private float upBorder; // 移动的上行边界
-    private float downBorder; // 移动的下行边界
-    private boolean isFire; // 开火状态
-    private boolean isAnger;// 愤怒状态
-    private boolean isCrazy; // 疯狂状态
-    private boolean isLimit;// 极限状态
-    private List<Bullet> bullets; // 子弹列表
+    private int direction; // Direction of movement
+    private int interval; // Firing interval
+    private float leftBorder; // Moving left border
+    private float rightBorder; // Moving right border
+    private float upBorder; // Moving upstream boundary
+    private float downBorder; // Moving down boundary
+    private boolean isFire; // Fire state
+    private boolean isAnger;// State of anger
+    private boolean isCrazy; // Crazy state
+    private boolean isLimit;// Limit state
+    private List<Bullet> bullets; // Bullet list
     private MyPlane myplane;
 
     private int bulletType;
 
     private GameObjectFactory factory;
 
-    private static final int STATE_NORMAL = 0; // 普通状态
-    private static final int STATE_ANGER = 1; // 愤怒状态
-    private static final int STATE_CRAZY = 2; // 疯狂状态
-    private static final int STATE_LIMIT = 3; // 极限状态
+    private static final int STATE_NORMAL = 0; // Normal state
+    private static final int STATE_ANGER = 1; // State of anger
+    private static final int STATE_CRAZY = 2; // Crazy state
+    private static final int STATE_LIMIT = 3; // Limit state
 
 
-    private long bossappear_interval;//Boss出现的间隔时间
+    private long bossappear_interval;//The interval between the appearance of Boss
 
     public BossPlane(Resources resources) {
         super(resources);
@@ -90,7 +90,7 @@ public class BossPlane extends EnemyPlane {
     }
 
     /**
-     * 初始化相关数据
+     * Initialize related data
      *
      * @param arg0
      * @param arg1
@@ -124,7 +124,7 @@ public class BossPlane extends EnemyPlane {
     }
 
     /**
-     * 初始化图片
+     * Initialize the picture
      */
     @Override
     public void initBitmap() {
@@ -134,12 +134,12 @@ public class BossPlane extends EnemyPlane {
                 R.drawable.bossplane_bomb);
         bossPlane_crazy = BitmapFactory.decodeResource(resources,
                 R.drawable.bossplane_crazy);
-        object_width = boosPlane.getWidth(); // 宽度
-        object_height = boosPlane.getHeight() / 2; // 高度
+        object_width = boosPlane.getWidth(); // width
+        object_height = boosPlane.getHeight() / 2; // height
     }
 
     /**
-     * 初始化子弹
+     * Initialize bullet
      */
     public void initBullet() {
         if (!isFire) return;
@@ -169,7 +169,7 @@ public class BossPlane extends EnemyPlane {
 
 
     /**
-     * 绘制BOSS机体
+     * Draw BOSS body
      *
      * @param canvas
      */
@@ -185,12 +185,12 @@ public class BossPlane extends EnemyPlane {
     }
 
     /**
-     * 绘制Boss爆炸的状态
+     * Draw the Boss explosion state
      *
      * @param canvas
      */
     private void drawExplosion(Canvas canvas) {
-        // 绘制爆炸时的图片
+        // Draw a picture of the explosion
         int y = (int) (currentFrame * object_height);
         canvas.save();
         canvas.clipRect(object_x, object_y, object_x + object_width,
@@ -198,7 +198,7 @@ public class BossPlane extends EnemyPlane {
         canvas.drawBitmap(boosPlaneBomb, object_x, object_y - y, paint);
         canvas.restore();
 
-        // 绘制帧动画
+        // Draw frame animation
         currentFrame++;
         if (currentFrame >= 5) {
             currentFrame = 0;
@@ -211,12 +211,12 @@ public class BossPlane extends EnemyPlane {
     }
 
     /**
-     * 绘制Boss机体
+     * Draw Boss body
      *
      * @param canvas
      */
     private void drawBoss(Canvas canvas) {
-        // 极限状态
+        // Limit state
         if (isLimit) {
             int y = (int) (currentFrame * object_height);
             canvas.save();
@@ -232,7 +232,7 @@ public class BossPlane extends EnemyPlane {
 
         }
 
-        // 疯狂状态
+        // Crazy state
         else if (isCrazy) {
             canvas.save();
             canvas.clipRect(object_x, object_y,
@@ -242,7 +242,7 @@ public class BossPlane extends EnemyPlane {
             canvas.restore();
         }
 
-        // 愤怒状态
+        // State of anger
         else if (isAnger) {
             canvas.save();
             canvas.clipRect(object_x, object_y,
@@ -253,7 +253,7 @@ public class BossPlane extends EnemyPlane {
 
         }
 
-        // 普通状态
+        // Normal state
         else {
             canvas.save();
             canvas.clipRect(object_x, object_y,
@@ -263,22 +263,22 @@ public class BossPlane extends EnemyPlane {
         }
 
         logic();
-        shoot(canvas); // 射击
+        shoot(canvas); // shooting
     }
 
     /**
-     * 射击逻辑
+     * Shooting logic
      *
      * @param canvas
      * @return
      */
     public boolean shoot(Canvas canvas) {
-        // 如果我方引爆了导弹，敌方当前子弹消失，并且不能继续射击
+        // If our side detonated the missile, the enemy’s current bullet disappeared and could not continue firing
         if (isFire && !myplane.getMissileState()) {
             for (Bullet obj : bullets) {
                 if (obj.isAlive()) {
                     obj.drawSelf(canvas);// 绘制子弹
-                    // 我方处于无敌模式时，敌方可以继续射击，但无法对我方机体造成伤害
+                    // When our side is in invincible mode, the enemy can continue to shoot, but cannot cause damage to our body
                     if (obj.isCollide(myplane) && !myplane.isInvincible()) {
                         myplane.setAlive(false);
                         return true;
@@ -290,7 +290,7 @@ public class BossPlane extends EnemyPlane {
     }
 
     /**
-     * 释放资源
+     * Free up resources
      */
     @Override
     public void release() {
@@ -314,7 +314,7 @@ public class BossPlane extends EnemyPlane {
     }
 
     /**
-     * BOSS逻辑
+     * BOSS logic
      */
     @Override
     public void logic() {
@@ -327,7 +327,7 @@ public class BossPlane extends EnemyPlane {
                 isFire = true;
             }
 
-            // 愤怒状态
+            // State of anger
             if (blood <= GameConstant.BOSSPLANE_ANGER_BLOOD
                     && blood > GameConstant.BOSSPLANE_CRAZY_BLOOD) {
                 if (!isAnger) {
@@ -338,7 +338,7 @@ public class BossPlane extends EnemyPlane {
                 }
             }
 
-            // 疯狂状态
+            // Crazy state
             if (blood <= GameConstant.BOSSPLANE_CRAZY_BLOOD
                     && blood > GameConstant.BOSSPLANE_LIMIT_BLOOD) {
                 if (isAnger) {
@@ -354,7 +354,7 @@ public class BossPlane extends EnemyPlane {
                 }
             }
 
-            // 极限状态
+            // Limit state
             if (blood <= GameConstant.BOSSPLANE_LIMIT_BLOOD) {
                 if (isAnger) {
                     isAnger = false;
@@ -380,14 +380,14 @@ public class BossPlane extends EnemyPlane {
     }
 
     /**
-     * BOSS移动逻辑
+     * BOSS mobile logic
      */
     public void moveLogic() {
         if (isCrazy || isLimit) {
             if (direction == ConstantUtil.DIR_RIGHT) {
                 direction = ConstantUtil.DIR_LEFT;
             }
-            // boss疯狂状态时的移动(右下>左>右上>左>右下``)
+            // The boss moves when he is crazy (lower right>left>upper right>left>lower right``)
             if (object_x < rightBorder && object_y < downBorder
                     && direction == ConstantUtil.DIR_RIGHT_DOWN) {
                 object_x += speed;
@@ -420,7 +420,7 @@ public class BossPlane extends EnemyPlane {
             }
         } else if (isAnger) {
 
-            // boss愤怒状态的移动(下方左右移动)
+            //Boss anger state movement (below to move left and right)
             if (object_y < downBorder) {
                 object_y += speed;
                 if (object_y >= downBorder) {
@@ -442,7 +442,7 @@ public class BossPlane extends EnemyPlane {
                 }
             }
         } else {
-            // boss普通状态的移动(上方左右移动)
+            // The movement of the boss in the normal state (moving from left to right)
             if (object_x < rightBorder && direction == ConstantUtil.DIR_RIGHT) {
                 object_x += speed;
                 if (object_x >= rightBorder) {
@@ -461,27 +461,27 @@ public class BossPlane extends EnemyPlane {
     }
 
     /**
-     * 更换子弹类型
+     * Change bullet type
      * @param type
      */
     public void changeBullet(int type) {
         bulletType = type;
 
-        // 清理原先的子弹
+        // Clean up the original bullet
         bullets.clear();
 
 
-        if (bulletType == ConstantUtil.BOSSBULLET_DEFAULT) { // 普通状态
+        if (bulletType == ConstantUtil.BOSSBULLET_DEFAULT) { // Normal state
             normalShooting();
-        } else if (bulletType == ConstantUtil.BOSSBULLET_ANGER) { // 愤怒状态
+        } else if (bulletType == ConstantUtil.BOSSBULLET_ANGER) { // State of anger
             angerShooting();
-        } else if (bulletType == ConstantUtil.BOSSBULLET_CRAZY) { // 疯狂状态
+        } else if (bulletType == ConstantUtil.BOSSBULLET_CRAZY) { // Crazy state
             crazyShooting();
-        } else if (bulletType == ConstantUtil.BOSSBULLET_LIMIT) { // 极限状态
+        } else if (bulletType == ConstantUtil.BOSSBULLET_LIMIT) { // Limit state
             limitShooting();
-        } else { // 其他情况
+        } else { // Other situations
             for (int i = 0; i < 5; i++) {
-                // 生产普通子弹
+                // Production of ordinary bullets
                 BossFlameBullet bullet = (BossFlameBullet) factory
                         .createBossFlameBullet(resources);
                 bullets.add(bullet);
@@ -492,68 +492,68 @@ public class BossPlane extends EnemyPlane {
     }
 
     /**
-     * 极限射击模式
+     * Extreme shooting mode
      */
     private void limitShooting() {
-        // 弹夹数
+        // Number of magazines
         int clip = speedTime + 5;
         for (int i = 0; i < clip; i++) {
             if (speedTime == 1) {
-                // 生产子弹5
+                // Bullet production 5
                 BossRHellfireBullet bullet5 = (BossRHellfireBullet) factory
                         .createBossRHellfireBullet(resources);
                 bullets.add(bullet5);
             } else if (speedTime == 2) {
-                // 生产子弹4
+                // Bullet production 4
                 BossYHellfireBullet bullet4 = (BossYHellfireBullet) factory
                         .createBossYHellfireBullet(resources);
                 bullets.add(bullet4);
 
-                // 生产子弹5
+                // Bullet production 3
                 BossRHellfireBullet bullet5 = (BossRHellfireBullet) factory
                         .createBossRHellfireBullet(resources);
                 bullets.add(bullet5);
             } else if (speedTime == 3) {
-                // 生产子弹1
+                // Bullet production 1
                 BossSunBullet bullet1 = (BossSunBullet) factory
                         .createBossSunBullet(resources);
                 bullets.add(bullet1);
-                // 生产子弹4
+                // Bullet production 4
                 BossYHellfireBullet bullet4 = (BossYHellfireBullet) factory
                         .createBossYHellfireBullet(resources);
                 bullets.add(bullet4);
-                // 生产子弹5
+                // Bullet production 5
                 BossRHellfireBullet bullet5 = (BossRHellfireBullet) factory
                         .createBossRHellfireBullet(resources);
                 bullets.add(bullet5);
             } else if (speedTime == 4) {
-                // 生产子弹1
+                // Bullet production 1
                 BossSunBullet bullet1 = (BossSunBullet) factory
                         .createBossSunBullet(resources);
                 bullets.add(bullet1);
 
-                // 生产子弹3
+                // Bullet production 3
                 BossGThunderBullet bullet3 = (BossGThunderBullet) factory
                         .createBossGThunderBullet(resources);
                 bullets.add(bullet3);
 
-                // 生产子弹5
+                // Bullet production 5
                 BossRHellfireBullet bullet5 = (BossRHellfireBullet) factory
                         .createBossRHellfireBullet(resources);
                 bullets.add(bullet5);
             } else {
 
-                // 生产子弹1
+                // Bullet production 1
                 BossSunBullet bullet1 = (BossSunBullet) factory
                         .createBossSunBullet(resources);
                 bullets.add(bullet1);
 
-                // 生产子弹5
+                // Bullet production 5
                 BossRHellfireBullet bullet5 = (BossRHellfireBullet) factory
                         .createBossRHellfireBullet(resources);
                 bullets.add(bullet5);
 
-                // 生产子弹Default
+                // Bullet production Default
                 BossDefaultBullet bullet_default = (BossDefaultBullet) factory
                         .createBossBulletDefault(resources);
                 bullets.add(bullet_default);
@@ -564,43 +564,43 @@ public class BossPlane extends EnemyPlane {
     }
 
     /**
-     * 疯狂射击模式
+     * Crazy shooting mode
      */
     private void crazyShooting() {
-        // 弹夹数
+        // Number of magazines
         int clip = speedTime + 4;
         for (int i = 0; i < clip; i++) {
             if (speedTime == 1) {
-                // 生产子弹4
+                // Bullet production 4
                 BossYHellfireBullet bullet4 = (BossYHellfireBullet) factory
                         .createBossYHellfireBullet(resources);
                 bullets.add(bullet4);
             } else if (speedTime == 2) {
-                // 生产子弹5
+                // Bullet production 5
                 BossRHellfireBullet bullet5 = (BossRHellfireBullet) factory
                         .createBossRHellfireBullet(resources);
                 bullets.add(bullet5);
             } else if (speedTime == 3) {
-                // 生产子弹4
+                // Bullet production 4
                 BossYHellfireBullet bullet4 = (BossYHellfireBullet) factory
                         .createBossYHellfireBullet(resources);
                 bullets.add(bullet4);
-                // 生产子弹5
+                // Bullet production 5
                 BossRHellfireBullet bullet5 = (BossRHellfireBullet) factory
                         .createBossRHellfireBullet(resources);
                 bullets.add(bullet5);
             } else {
-                // 生产子弹3
+                // Bullet production 3
                 BossGThunderBullet bullet3 = (BossGThunderBullet) factory
                         .createBossGThunderBullet(resources);
                 bullets.add(bullet3);
 
-                // 生产子弹4
+                // Bullet production 4
                 BossYHellfireBullet bullet4 = (BossYHellfireBullet) factory
                         .createBossYHellfireBullet(resources);
                 bullets.add(bullet4);
 
-                // 生产子弹5
+                // Bullet production 5
                 BossRHellfireBullet bullet5 = (BossRHellfireBullet) factory
                         .createBossRHellfireBullet(resources);
                 bullets.add(bullet5);
@@ -611,42 +611,42 @@ public class BossPlane extends EnemyPlane {
     }
 
     /**
-     * 愤怒射击模式
+     * Anger shooting mode
      */
     private void angerShooting() {
         for (int i = 0; i < 8; i++) {
             if (speedTime <= 2) {
-                // 生产子弹1
+                // Bullet production 1
                 BossSunBullet bullet1 = (BossSunBullet) factory
                         .createBossSunBullet(resources);
                 bullets.add(bullet1);
 
-                // 生产子弹2
+                // Bullet production 2
                 BossTriangleBullet bullet2 = (BossTriangleBullet) factory
                         .createBossTriangleBullet(resources);
                 bullets.add(bullet2);
             } else if (speedTime <= 4) {
-                // 生产子弹1
+                // Bullet production 1
                 BossSunBullet bullet1 = (BossSunBullet) factory
                         .createBossSunBullet(resources);
                 bullets.add(bullet1);
 
-                // 生产子弹3
+                // Bullet production 3
                 BossGThunderBullet bullet3 = (BossGThunderBullet) factory
                         .createBossGThunderBullet(resources);
                 bullets.add(bullet3);
             } else {
-                // 生产子弹1
+                // Bullet production 1
                 BossSunBullet bullet1 = (BossSunBullet) factory
                         .createBossSunBullet(resources);
                 bullets.add(bullet1);
 
-                // 生产子弹2
+                // Bullet production 2
                 BossTriangleBullet bullet2 = (BossTriangleBullet) factory
                         .createBossTriangleBullet(resources);
                 bullets.add(bullet2);
 
-                // 生产子弹3
+                // Bullet production 3
                 BossGThunderBullet bullet3 = (BossGThunderBullet) factory
                         .createBossGThunderBullet(resources);
                 bullets.add(bullet3);
@@ -656,33 +656,33 @@ public class BossPlane extends EnemyPlane {
     }
 
     /**
-     * 普通射击模式
+     * Normal shooting mode
      */
     private void normalShooting() {
         for (int i = 0; i < 100; i++) {
-            // 生产子弹Default
+            // Produce bulletsDefault
             BossDefaultBullet bullet_default = (BossDefaultBullet) factory
                     .createBossBulletDefault(resources);
             bullets.add(bullet_default);
 
             if (speedTime >= 3) {
                 if (speedTime == 3) {
-                    // 生产子弹4
+                    // Bullet production 4
                     BossYHellfireBullet bullet4 = (BossYHellfireBullet) factory
                             .createBossYHellfireBullet(resources);
                     bullets.add(bullet4);
                 } else if (speedTime == 4) {
-                    // 生产子弹5
+                    // Bullet production 5
                     BossRHellfireBullet bullet5 = (BossRHellfireBullet) factory
                             .createBossRHellfireBullet(resources);
                     bullets.add(bullet5);
                 } else {
-                    // 生产子弹4
+                    // Bullet production 4
                     BossYHellfireBullet bullet4 = (BossYHellfireBullet) factory
                             .createBossYHellfireBullet(resources);
                     bullets.add(bullet4);
 
-                    // 生产子弹5
+                    // Bullet production 5
                     BossRHellfireBullet bullet5 = (BossRHellfireBullet) factory
                             .createBossRHellfireBullet(resources);
                     bullets.add(bullet5);

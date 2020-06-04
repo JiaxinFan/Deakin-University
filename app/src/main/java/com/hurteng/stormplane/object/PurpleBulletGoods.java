@@ -6,7 +6,7 @@ import android.graphics.BitmapFactory;
 import com.hurteng.stormplane.myplane.R;
 
 /**
- * 紫色弹药物品
+ * purple bullet Goods
  */
 public class PurpleBulletGoods extends GameGoods{
 	public PurpleBulletGoods(Resources resources) {

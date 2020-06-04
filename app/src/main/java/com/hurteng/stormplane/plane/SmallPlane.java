@@ -11,7 +11,7 @@ import com.hurteng.stormplane.myplane.R;
 import java.util.Random;
 
 /**
- * 小型机
+ * Minicomputer
  */
 public class SmallPlane extends EnemyPlane {
     private static int currentCount = 0;
@@ -85,7 +85,7 @@ public class SmallPlane extends EnemyPlane {
     }
 
     /**
-     * 移动逻辑
+     * Mobile logic
      */
     public void logic() {
 		/*
@@ -103,7 +103,7 @@ public class SmallPlane extends EnemyPlane {
             // speed -= 1;
 			/*
 			 * if (object_y < -object_height) {
-			 * //必须小于-object_height，如果条件是object_y<0,敌机无法出现 isAlive = false; }
+			 * //Must be less than -object_height, if the condition is object_y<0, the enemy aircraft cannot appear isAlive = false; }
 			 */
 
         } else {

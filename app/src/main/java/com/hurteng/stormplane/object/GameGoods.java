@@ -9,11 +9,11 @@ import com.hurteng.stormplane.constant.ConstantUtil;
 import java.util.Random;
 
 /**
- * 游戏物品
+ * gameGoods
  */
 public class GameGoods extends GameObject {
     protected Bitmap bmp;
-    private int direction;            //移动方向
+    private int direction;            //move directions
 
     public GameGoods(Resources resources) {
         super(resources);
@@ -54,12 +54,12 @@ public class GameGoods extends GameObject {
     }
 
     /**
-     * 物品的逻辑
+     * logic of gamegoods
      */
     @Override
     public void logic() {
         Random ran = new Random();
-        // 左上方移动时的逻辑
+        // The logic when moving in the upper left
         if (direction == ConstantUtil.DIR_LEFT_UP) {
             object_x -= ran.nextInt(3) + speed;
             object_y -= ran.nextInt(3) + speed;
@@ -77,7 +77,7 @@ public class GameGoods extends GameObject {
                 this.speed = 10 + ran.nextInt(5);
             }
         }
-        // 右上方移动时的逻辑
+        // The logic when moving in the upper right
         else if (direction == ConstantUtil.DIR_RIGHT_UP) {
             object_x += ran.nextInt(3) + speed;
             object_y -= ran.nextInt(3) + speed;
@@ -95,7 +95,7 @@ public class GameGoods extends GameObject {
                 this.speed = 10 + ran.nextInt(5);
             }
         }
-        // 左下方移动时的逻辑
+        // The logic when moving the lower left
         else if (direction == ConstantUtil.DIR_LEFT_DOWN) {
             object_x -= ran.nextInt(3) + speed;
             object_y += ran.nextInt(3) + speed;
@@ -113,7 +113,7 @@ public class GameGoods extends GameObject {
                 this.speed = 10 + ran.nextInt(5);
             }
         }
-        // 右下方移动时的逻辑
+        // The logic when moving to the bottom right
         else if (direction == ConstantUtil.DIR_RIGHT_DOWN) {
             object_x += ran.nextInt(3) + speed;
             object_y += ran.nextInt(3) + speed;

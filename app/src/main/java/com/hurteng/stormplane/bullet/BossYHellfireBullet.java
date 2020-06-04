@@ -11,7 +11,7 @@ import com.hurteng.stormplane.object.GameObject;
 import java.util.Random;
 
 /**
- * BOSS的恶魔地狱火(黄)
+ * BOSS' Demon Hellfire (Yellow)
  */
 public class BossYHellfireBullet extends EnemyBullet {
 
@@ -21,7 +21,7 @@ public class BossYHellfireBullet extends EnemyBullet {
 		super(resources);
 	}
 
-	// 初始化数据
+	// Initialization data
 	@Override
 	public void initial(int arg0, float arg1, float arg2) {
 		isAlive = true;
@@ -32,7 +32,7 @@ public class BossYHellfireBullet extends EnemyBullet {
 		
 	}
 
-	// 初始化图片的资源
+	// Initialize image resources
 	@Override
 	public void initBitmap() {
 		bullet = BitmapFactory.decodeResource(resources, R.drawable.boss_bullet_hellfire_yellow);
@@ -40,7 +40,7 @@ public class BossYHellfireBullet extends EnemyBullet {
 		object_height = bullet.getHeight();
 	}
 
-	// 对象的绘图方法
+	// Object drawing method
 	@Override
 	public void drawSelf(Canvas canvas) {
 		if (isAlive) {
@@ -53,7 +53,7 @@ public class BossYHellfireBullet extends EnemyBullet {
 		}
 	}
 
-	// 释放资源的方法
+	// Ways to release resources
 	@Override
 	public void release() {
 		if (!bullet.isRecycled()) {
@@ -61,7 +61,7 @@ public class BossYHellfireBullet extends EnemyBullet {
 		}
 	}
 
-	// 对象的逻辑函数
+	// Object logic function
 	@Override
 	public void logic() {
 		if (object_y >= 0) {

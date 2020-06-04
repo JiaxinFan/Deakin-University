@@ -23,24 +23,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 玩家的飞机
+ * Player's plane
  */
 public class MyPlane extends GameObject implements IMyPlane {
     private static final boolean Random = false;
     private float middle_x;
     private float middle_y;
-    private long startTime; // 开始时间
-    private long endTime; // 结束时间
-    private boolean isChangeBullet; // 更换子弹类型
+    private long startTime; // Starting time
+    private long endTime; // End Time
+    private boolean isChangeBullet; // Change bullet type
     private Bitmap mPlane;
     private Bitmap mPlaneExplosion;
-    private List<Bullet> bullets; // 子弹列表
+    private List<Bullet> bullets; // Bullet list
     private MainView mainView;
     private GameObjectFactory factory;
-    private boolean isInvincible; // 是否无敌
-    private boolean isDamaged; // 是否受损
-    private int bulletType;//当前子弹类型
-    private boolean isMissileBoom; //导弹是否被引爆
+    private boolean isInvincible; // Invincible
+    private boolean isDamaged; // Is it damaged
+    private int bulletType;//Current bullet type
+    private boolean isMissileBoom; //Whether the missile was detonated
 
     public MyPlane(Resources resources) {
         super(resources);
@@ -90,7 +90,7 @@ public class MyPlane extends GameObject implements IMyPlane {
     }
 
     /**
-     * 绘制机体
+     * Draw body
      *
      * @param canvas
      */
@@ -120,7 +120,7 @@ public class MyPlane extends GameObject implements IMyPlane {
 
 
     /**
-     * 绘制爆炸时的机体
+     * Drawing the body at the time of explosion
      *
      * @param canvas
      */
@@ -165,7 +165,7 @@ public class MyPlane extends GameObject implements IMyPlane {
     }
 
     /**
-     * 射击逻辑
+     * Shooting logic
      *
      * @param canvas
      * @param planes
@@ -174,16 +174,16 @@ public class MyPlane extends GameObject implements IMyPlane {
     public void shoot(Canvas canvas, List<EnemyPlane> planes) {
         for (Bullet bullet : bullets) {
             if (bullet.isAlive()) {
-                // 绘制子弹
+                // Draw bullets
                 bullet.drawSelf(canvas);
-                // 检测子弹是否击中敌机
+                // Detect whether the bullet hits the enemy plane
                 checkAttacked(planes, bullet);
             }
         }
     }
 
     /**
-     * 检测子弹是否击中敌机
+     * Detect whether the bullet hits the enemy plane
      *
      * @param planes
      * @param bullet
@@ -199,16 +199,16 @@ public class MyPlane extends GameObject implements IMyPlane {
     }
 
     /**
-     * 击中敌机的逻辑处理
+     * Logical processing of hitting enemy aircraft
      *
      * @param bullet
      * @param plane
      */
     private void attackedEnemyPlane(Bullet bullet, EnemyPlane plane) {
-        // 记录敌机的受损状态
+        // Record the damage status of enemy aircraft
         plane.attacked(bullet.getHarm());
         if (plane.isExplosion()) {
-            // 根据击毁的不同敌机增加相应的分数(同时播放爆炸音乐)
+            // Increase the corresponding score according to the different enemy aircraft destroyed (simultaneously play explosion music)
             mainView.addGameScore(plane.getScore());
             if (plane instanceof SmallPlane) {
                 mainView.playSound(2);
@@ -223,7 +223,7 @@ public class MyPlane extends GameObject implements IMyPlane {
     }
 
     /**
-     * 初始化子弹
+     * Initialize bullet
      */
     @Override
     public void initBullet() {
@@ -236,7 +236,7 @@ public class MyPlane extends GameObject implements IMyPlane {
     }
 
     /**
-     * 更换子弹
+     * Bullet replacement
      *
      * @param type
      */
@@ -268,7 +268,7 @@ public class MyPlane extends GameObject implements IMyPlane {
     }
 
     /**
-     * 判断特殊子弹是否超时
+     * Determine if a special bullet has timed out
      */
     public void isBulletOverTime() {
         if (isChangeBullet) {
@@ -283,7 +283,7 @@ public class MyPlane extends GameObject implements IMyPlane {
     }
 
     /**
-     * 设置飞机的无敌时间
+     * Set the aircraft's invincibility time
      *
      * @param time
      */
@@ -296,7 +296,7 @@ public class MyPlane extends GameObject implements IMyPlane {
     }
 
     /**
-     * 检测是否为无敌状态
+     * Check if it is invincible
      *
      * @return
      */
@@ -305,7 +305,7 @@ public class MyPlane extends GameObject implements IMyPlane {
     }
 
     /**
-     * 设置导弹状态
+     * Set missile status
      *
      * @param isBoom
      */
@@ -314,7 +314,7 @@ public class MyPlane extends GameObject implements IMyPlane {
     }
 
     /**
-     * 检测导弹状态（是否已经引爆）
+     * Check the missile status (whether it has been detonated)
      *
      * @return
      */
@@ -323,7 +323,7 @@ public class MyPlane extends GameObject implements IMyPlane {
     }
 
     /**
-     * 设置是否为受损状态
+     * Set whether it is damaged
      *
      * @param arg
      */
@@ -332,7 +332,7 @@ public class MyPlane extends GameObject implements IMyPlane {
     }
 
     /**
-     * 检测是否为受损状态
+     * Check if it is damaged
      *
      * @return
      */

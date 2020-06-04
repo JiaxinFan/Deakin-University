@@ -11,7 +11,7 @@ import com.hurteng.stormplane.myplane.R;
 import java.util.HashMap;
 
 /**
- * 游戏音乐
+ * Game music
  */
 public class GameSoundPool {
     private MainActivity mainActivity;
@@ -26,7 +26,7 @@ public class GameSoundPool {
     }
 
     /**
-     * 初始化游戏音乐
+     * Initialize game music
      */
     public void initGameSound() {
         map.put(1, soundPool.load(mainActivity, R.raw.shoot, 1));
@@ -39,7 +39,7 @@ public class GameSoundPool {
     }
 
     /**
-     * 播放游戏背音乐
+     * Play game back music
      * @param sound
      * @param loop
      */

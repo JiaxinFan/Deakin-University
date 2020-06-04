@@ -6,7 +6,7 @@ import android.graphics.BitmapFactory;
 import com.hurteng.stormplane.myplane.R;
 
 /**
- * 导弹物品
+ * missileGoods
  */
 public class MissileGoods extends GameGoods {
     public MissileGoods(Resources resources) {

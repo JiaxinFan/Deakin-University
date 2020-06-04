@@ -11,14 +11,14 @@ import com.hurteng.stormplane.object.GameObject;
 import com.hurteng.stormplane.plane.SmallPlane;
 
 /**
- * 我方机体的紫色双螺旋粒子炮
+ * The purple double helix particle cannon of our body
  */
 public class MyPurpleBullet extends Bullet {
     private Bitmap bullet;
     private float object_x2;
     private float object_y2;
     private boolean isAlive2;
-    private boolean attack;            // 命中状态
+    private boolean attack;            // Hit state
     private boolean attack2;
 
     public MyPurpleBullet(Resources resources) {
@@ -85,7 +85,7 @@ public class MyPurpleBullet extends Bullet {
     }
 
     /**
-     * 碰撞检测
+     * Impact checking
      * @param obj
      * @return
      */
@@ -147,7 +147,7 @@ public class MyPurpleBullet extends Bullet {
     }
 
     /**
-     * 子弹存活状态
+     * Bullet survival status
      * @return
      */
     @Override

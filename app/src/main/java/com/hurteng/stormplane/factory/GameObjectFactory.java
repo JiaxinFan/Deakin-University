@@ -26,11 +26,11 @@ import com.hurteng.stormplane.plane.SmallPlane;
 
 
 /**
- * 物品构建的工厂
+ * factory of creating goods
  */
 public class GameObjectFactory {
     /**
-     * 小型机
+     * small plane
      * @param resources
      * @return
      */
@@ -39,7 +39,7 @@ public class GameObjectFactory {
     }
 
     /**
-     * 生产中型机
+     * middle plane
      * @param resources
      * @return
      */
@@ -48,7 +48,7 @@ public class GameObjectFactory {
     }
 
     /**
-     * 生产大型机
+     * big plane
      * @param resources
      * @return
      */
@@ -57,7 +57,7 @@ public class GameObjectFactory {
     }
 
     /**
-     * 生产boss机体
+     * boss plane
      * @param resources
      * @return
      */
@@ -66,7 +66,7 @@ public class GameObjectFactory {
     }
 
     /**
-     * 生产我方机体
+     * generate our plane
      * @param resources
      * @return
      */
@@ -75,7 +75,7 @@ public class GameObjectFactory {
     }
 
     /**
-     * 生产我方的子弹
+     * make bullets
      * @param resources
      * @return
      */
@@ -90,7 +90,7 @@ public class GameObjectFactory {
     }
 
     /**
-     * 生产BOSS的子弹
+     * Produce BOSS bullets
      * @param resources
      * @return
      */
@@ -123,7 +123,7 @@ public class GameObjectFactory {
     }
 
     /**
-     * 生产BigPlane的子弹
+     * produce bullets of big plane
      * @param resources
      * @return
      */
@@ -132,7 +132,7 @@ public class GameObjectFactory {
     }
 
     /**
-     * 生产导弹物品
+     * produce missile
      * @param resources
      * @return
      */
@@ -141,7 +141,7 @@ public class GameObjectFactory {
     }
 
     /**
-     * 生产生命物品
+     * produce life goods
      * @param resources
      * @return
      */
@@ -151,7 +151,7 @@ public class GameObjectFactory {
 
 
     /**
-     * 生产子弹物品
+     * produce bullets goods
      * @param resources
      * @return
      */

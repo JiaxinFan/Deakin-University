@@ -52,7 +52,7 @@ public class MainActivity extends Activity {
     }
 
     /**
-     * 进入游戏界面
+     * Enter the game interface
      */
     public void toMainView() {
         if (mainView == null) {
@@ -64,7 +64,7 @@ public class MainActivity extends Activity {
     }
 
     /**
-     * 进入结束分数统计界面
+     * Enter the end score statistics interface
      *
      * @param score
      */
@@ -78,7 +78,7 @@ public class MainActivity extends Activity {
     }
 
     /**
-     * 结束游戏
+     * End Game
      */
     public void endGame() {
         if (readyView != null) {
@@ -106,7 +106,7 @@ public class MainActivity extends Activity {
 
 
     /**
-     * 双击退出函数
+     * Double-click to exit the function
      */
     private long firstTime = 0;
 
@@ -115,7 +115,7 @@ public class MainActivity extends Activity {
         if (DebugConstant.DOUBLECLICK_EXIT) {
             if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
                 if (System.currentTimeMillis() - firstTime > 2000) {
-                    Toast.makeText(MainActivity.this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Press again to exit the program", Toast.LENGTH_SHORT).show();
                     firstTime = System.currentTimeMillis();
                 } else {
                     finish();

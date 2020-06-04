@@ -11,7 +11,7 @@ import com.hurteng.stormplane.object.GameObject;
 import java.util.Random;
 
 /**
- * BOSS的闪光粒子球
+ * BOSS's glitter particle ball
  */
 public class BossSunBullet extends EnemyBullet {
 	private Bitmap bullet;
@@ -65,7 +65,7 @@ public class BossSunBullet extends EnemyBullet {
 		}
 	}
 
-	// 碰撞检测
+	// Impact checking
 	@Override
 	public boolean isCollide(GameObject obj) {
 		return super.isCollide(obj);

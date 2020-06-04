@@ -5,20 +5,20 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 
 /**
- * 游戏物品
+ * gameobject
  */
 abstract public class GameObject {
-    protected int currentFrame;    // 帧数
-    protected int speed;            // 移动速度
-    protected float object_x;        // 物品的x坐标
-    protected float object_y;        // 物品的y坐标
-    protected float object_width;    // 物体宽度
-    protected float object_height;    // 物体高度
-    protected float screen_width;    // 屏幕宽度
-    protected float screen_height;  // 屏幕高度
-    protected boolean isAlive;        // 存活状态
-    protected Paint paint;            // 画笔
-    protected Resources resources;  // 资源文件
+    protected int currentFrame;    // frame
+    protected int speed;            // speed
+    protected float object_x;        // coordinate x
+    protected float object_y;        // coordinate y
+    protected float object_width;    // weight
+    protected float object_height;    // height
+    protected float screen_width;    // screen width
+    protected float screen_height;  // screen height
+    protected boolean isAlive;        // status of showing
+    protected Paint paint;            // paint
+    protected Resources resources;  // resource
 
     public GameObject(Resources resources) {
         this.resources = resources;

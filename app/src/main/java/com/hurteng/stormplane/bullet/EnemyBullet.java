@@ -6,7 +6,7 @@ import android.graphics.Canvas;
 import com.hurteng.stormplane.object.GameObject;
 
 /**
- * 敌方子弹类
+ * Enemy Bullets
  * 
  * @author Administrator
  * 
@@ -18,30 +18,30 @@ public class EnemyBullet extends Bullet {
 		this.harm = 1;
 	}
 
-	// 初始化数据
+	// Initialization data
 	@Override
 	public void initial(int arg0, float arg1, float arg2) {
 		
 	}
 
-	// 初始化图片资源
+	// 初始化图片资源 Initialize image resources
 	@Override
 	public void initBitmap() {
 
 	}
 
-	// 绘图方法
+	// 绘图方法 Drawing method
 	@Override
 	public void drawSelf(Canvas canvas) {
 		
 	}
 
-	// 释放资源的方法
+	// Ways to release resources
 	@Override
 	public void release() {
 	}
 
-	// 子弹运动逻辑，默认向下
+	// Bullet movement logic, default downward
 	@Override
 	public void logic() {
 		if (object_y >= 0) {
@@ -51,25 +51,25 @@ public class EnemyBullet extends Bullet {
 		}
 	}
 
-	// 碰撞检测
+	// Impact checking
 	@Override
 	public boolean isCollide(GameObject obj) {
-		// 矩形1位于矩形2的左侧
+		// Rectangle 1 is to the left of rectangle 2
 		if (object_x <= obj.getObject_x()
 				&& object_x + object_width <= obj.getObject_x()) {
 			return false;
 		}
-		// 矩形1位于矩形2的右侧
+		// Rectangle 1 is to the right of rectangle 2
 		else if (obj.getObject_x() <= object_x
 				&& obj.getObject_x() + obj.getObject_width() <= object_x) {
 			return false;
 		}
-		// 矩形1位于矩形2的上方
+		// Rectangle 1 is above rectangle 2
 		else if (object_y <= obj.getObject_y()
 				&& object_y + object_height <= obj.getObject_y()) {
 			return false;
 		}
-		// 矩形1位于矩形2的下方
+		// Rectangle 1 is below rectangle 2
 		else if (obj.getObject_y() <= object_y
 				&& obj.getObject_y() + obj.getObject_height() <= object_y) {
 			return false;

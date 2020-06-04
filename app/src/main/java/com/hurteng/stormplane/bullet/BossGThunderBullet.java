@@ -12,7 +12,7 @@ import java.util.Random;
 
 
 /**
- * BOSS的双生闪电球(绿)
+ * BOSS Twin Lightning Ball (Green)
  *
  */
 public class BossGThunderBullet extends EnemyBullet {
@@ -69,7 +69,7 @@ public class BossGThunderBullet extends EnemyBullet {
 		}
 	}
 
-	// 碰撞检测
+	// Impact checking
 	@Override
 	public boolean isCollide(GameObject obj) {
 		return super.isCollide(obj);

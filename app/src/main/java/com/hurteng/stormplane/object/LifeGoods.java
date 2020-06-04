@@ -6,7 +6,7 @@ import android.graphics.BitmapFactory;
 import com.hurteng.stormplane.myplane.R;
 
 /**
- * 生命物品
+ * lifegoods
  */
 public class LifeGoods extends GameGoods {
 

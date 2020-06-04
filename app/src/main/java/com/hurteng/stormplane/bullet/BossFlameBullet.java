@@ -12,7 +12,7 @@ import java.util.Random;
 
 
 /**
- * BOSS的火焰弹
+ * BOSS flame bomb
  */
 public class BossFlameBullet extends EnemyBullet {
     private Bitmap bullet;
@@ -41,7 +41,7 @@ public class BossFlameBullet extends EnemyBullet {
 
 
     /**
-     * 绘制子弹
+     * Draw bullets
      * @param canvas
      */
     @Override
@@ -64,7 +64,7 @@ public class BossFlameBullet extends EnemyBullet {
     }
 
     /**
-     * 子弹移动逻辑
+     * Bullet movement logic
      */
     @Override
     public void logic() {
@@ -76,7 +76,7 @@ public class BossFlameBullet extends EnemyBullet {
         }
     }
 
-    // 碰撞检测
+    // Impact checking
     @Override
     public boolean isCollide(GameObject obj) {
         return super.isCollide(obj);

@@ -6,23 +6,23 @@ import android.graphics.Canvas;
 import com.hurteng.stormplane.object.GameObject;
 
 /**
- * 敌机类
+ * Enemy aircraft
  */
 public class EnemyPlane extends GameObject {
-    protected int score;                         // 分数
-    protected int blood;                         // 当前血量
-    protected int bloodVolume;                     // 总血量
-    protected boolean isExplosion;             // 爆炸状态
-    protected boolean isVisible;                 //	 可见状态
-    public int speedTime; // 游戏速度的倍数
+    protected int score;                         // fraction
+    protected int blood;                         // Current blood volume
+    protected int bloodVolume;                     // Total blood volume
+    protected boolean isExplosion;             // Explosive state
+    protected boolean isVisible;                 //	 Visible state
+    public int speedTime; // Multiple of game speed
 
     public EnemyPlane(Resources resources) {
         super(resources);
-        initBitmap(); // 初始化图片
+        initBitmap(); // Initialize the picture
     }
 
     /**
-     * 初始化
+     * Initialize
      * @param arg0
      * @param arg1
      * @param arg2
@@ -33,7 +33,7 @@ public class EnemyPlane extends GameObject {
     }
 
     /**
-     * 初始化图片
+     * Initialize the picture
      */
     @Override
     public void initBitmap() {
@@ -41,16 +41,16 @@ public class EnemyPlane extends GameObject {
     }
 
     /**
-     * 绘制
+     * Draw
      * @param canvas
      */
     @Override
     public void drawSelf(Canvas canvas) {
-        // 由子类实现
+        // Implemented by subclasses
     }
 
     /**
-     * 释放资源
+     * Free up resources
      */
     @Override
     public void release() {
@@ -58,7 +58,7 @@ public class EnemyPlane extends GameObject {
     }
 
     /**
-     * 敌机逻辑
+     * Enemy logic
      */
     @Override
     public void logic() {
@@ -75,7 +75,7 @@ public class EnemyPlane extends GameObject {
     }
 
     /**
-     * 被攻击时的逻辑
+     * Logic when attacked
      * @param harm
      */
     public void attacked(int harm) {
@@ -86,38 +86,38 @@ public class EnemyPlane extends GameObject {
     }
 
     /**
-     * 碰撞逻辑
-     * @param obj
+     * Collision logic
+     *       * @param obj
      * @return
      */
     @Override
     public boolean isCollide(GameObject obj) {
-        // 位于物体左边
+        // On the left side of the object
         if (object_x <= obj.getObject_x()
                 && object_x + object_width <= obj.getObject_x()) {
             return false;
         }
-        // 位于物体右边
+        // To the right of the object
         else if (obj.getObject_x() <= object_x
                 && obj.getObject_x() + obj.getObject_width() <= object_x) {
             return false;
         }
-        // 位于物体上方
+        // Above the object
         else if (object_y <= obj.getObject_y()
                 && object_y + object_height <= obj.getObject_y()) {
             return false;
         }
-        // 位于物体下方
+        // Under the object
         else if (obj.getObject_y() <= object_y
                 && obj.getObject_y() + obj.getObject_height() <= object_y) {
             return false;
         }
-        // 若不满足上述条件,则判断为相碰撞
+        // If the above conditions are not met, it is judged as a phase collision
         return true;
     }
 
     /**
-     * 是否能碰撞
+     * Whether it can collide
      * @return
      */
     public boolean isCanCollide() {

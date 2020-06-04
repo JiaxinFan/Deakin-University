@@ -25,7 +25,7 @@ public class BaseView extends SurfaceView implements SurfaceHolder.Callback, Run
     protected MainActivity mainActivity;
 
     /**
-     * 构造函数
+     * Constructor
      * @param context
      * @param sounds
      */
@@ -59,13 +59,13 @@ public class BaseView extends SurfaceView implements SurfaceHolder.Callback, Run
     }
 
     /**
-     * 释放资源
+     * Free up resources
      */
     public void release() {
     }
 
     /**
-     * 绘制
+     * draw
      */
     public void drawSelf() {
     }

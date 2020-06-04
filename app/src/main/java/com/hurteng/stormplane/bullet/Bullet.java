@@ -7,7 +7,7 @@ import com.hurteng.stormplane.object.GameObject;
 import com.hurteng.stormplane.plane.SmallPlane;
 
 /**
- * 子弹类
+ * bullet class
  */
 public class Bullet extends GameObject {
     protected int harm;
@@ -33,29 +33,29 @@ public class Bullet extends GameObject {
     }
 
     /**
-     * 碰撞检测
+     * Impact checking
      *
      * @param obj
      * @return
      */
     @Override
     public boolean isCollide(GameObject obj) {
-        // 位于物体左边
+        // On the left side of the object
         if (object_x <= obj.getObject_x()
                 && object_x + object_width <= obj.getObject_x()) {
             return false;
         }
-        // 位于物体右边
+        // To the right of the object
         else if (obj.getObject_x() <= object_x
                 && obj.getObject_x() + obj.getObject_width() <= object_x) {
             return false;
         }
-        // 位于物体上边
+        // Above the object
         else if (object_y <= obj.getObject_y()
                 && object_y + object_height <= obj.getObject_y()) {
             return false;
         }
-        // 位于物体下边
+        // Beneath the object
         else if (obj.getObject_y() <= object_y
                 && obj.getObject_y() + obj.getObject_height() <= object_y) {
             if (obj instanceof SmallPlane) {
@@ -71,7 +71,7 @@ public class Bullet extends GameObject {
     }
 
     /**
-     * 获取子弹的伤害值
+     * Get the damage value of the bullet
      * @return
      */
     public int getHarm() {

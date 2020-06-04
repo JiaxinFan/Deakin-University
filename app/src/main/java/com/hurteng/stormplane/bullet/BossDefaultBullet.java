@@ -11,7 +11,7 @@ import com.hurteng.stormplane.plane.MyPlane;
 import com.hurteng.stormplane.plane.SmallPlane;
 
 /**
- * Boss默认的子弹
+ * Boss default bullet
  */
 public class BossDefaultBullet extends EnemyBullet {
 
@@ -26,7 +26,7 @@ public class BossDefaultBullet extends EnemyBullet {
 		super(resources);
 	}
 
-	// 初始化数据
+	// Initialization data
 	@Override
 	public void initial(int arg0, float arg1, float arg2) {
 		isAlive = true;
@@ -40,7 +40,7 @@ public class BossDefaultBullet extends EnemyBullet {
 		
 	}
 
-	// 初始化图片资源的
+	// Initialize image resources
 	@Override
 	public void initBitmap() {
 		bullet = BitmapFactory.decodeResource(resources, R.drawable.bossbullet_default);
@@ -48,7 +48,7 @@ public class BossDefaultBullet extends EnemyBullet {
 		object_height = bullet.getHeight();
 	}
 
-	// 对象的绘图方法
+	// Object drawing method
 	@Override
 	public void drawSelf(Canvas canvas) {
 		if (isAlive) {
@@ -66,7 +66,7 @@ public class BossDefaultBullet extends EnemyBullet {
 		logic();
 	}
 
-	// 释放资源的方法
+	// Ways to release resources
 	@Override
 	public void release() {
 		if (!bullet.isRecycled()) {
@@ -74,10 +74,10 @@ public class BossDefaultBullet extends EnemyBullet {
 		}
 	}
 
-	// 对象的逻辑函数
+	// Object logic function
 	@Override
 	public void logic() {
-		//左边
+		//左边 left
 		if (object_y >= 0) {
 			object_y -= speed;
 			object_x += 10*(Math.sin(object_y));
@@ -86,7 +86,7 @@ public class BossDefaultBullet extends EnemyBullet {
 			isAlive = false;
 		}
 		
-		//右边
+		//右边 right
 		if (object_y2 >= 0) {
 			object_y2 -= speed;
 			object_x2 += -10*(Math.sin(object_y2));
@@ -100,17 +100,17 @@ public class BossDefaultBullet extends EnemyBullet {
 	public boolean isCollide(GameObject obj) {
 		attack = false;
 		attack2 = false;
-		// 判断左边的子弹是否存活
+		// Determine if the bullet on the left is alive
 		if (isAlive) {
 			if (object_x <= obj.getObject_x()
 					&& object_x + object_width <= obj.getObject_x()) {}
-			// 矩形1位于矩形2的右侧
+			// Rectangle 1 is to the right of rectangle 2
 			else if (obj.getObject_x() <= object_x
 					&& obj.getObject_x() + obj.getObject_width() <= object_x) {}
-			// 矩形1位于矩形2的上方
+			// Rectangle 1 is above rectangle 2
 			else if (object_y <= obj.getObject_y()
 					&& object_y + object_height + 30 <= obj.getObject_y()) {}
-			// 矩形1位于矩形2的下方
+			// Rectangle 1 is below rectangle 2
 			else if (obj.getObject_y() <= object_y
 					&& obj.getObject_y() + obj.getObject_height() + 30 <= object_y) 
 			{
@@ -129,13 +129,13 @@ public class BossDefaultBullet extends EnemyBullet {
 		if (isAlive2) {
 			if (object_x2 <= obj.getObject_x()
 					&& object_x2 + object_width <= obj.getObject_x()) {}
-			// 矩形1位于矩形2的右侧
+			// Rectangle 1 is to the right of rectangle 2
 			else if (obj.getObject_x() <= object_x2
 					&& obj.getObject_x() + obj.getObject_width() <= object_x2) {}
-			// 矩形1位于矩形2的上方
+			// Rectangle 1 is above rectangle 2
 			else if (object_y2 <= obj.getObject_y()
 					&& object_y2 + object_height + 30 <= obj.getObject_y()) {}
-			// 矩形1位于矩形2的下方
+			// Rectangle 1 is below rectangle 2
 			else if (obj.getObject_y() <= object_y2
 					&& obj.getObject_y() + obj.getObject_height() + 30 <= object_y2) 
 			{

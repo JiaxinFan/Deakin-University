@@ -15,7 +15,7 @@ import com.hurteng.stormplane.myplane.R;
 import com.hurteng.stormplane.sounds.GameSoundPool;
 
 /**
- * 游戏结束
+ * game over
  */
 @SuppressLint("ViewConstructor")
 public class EndView extends BaseView {
@@ -66,7 +66,7 @@ public class EndView extends BaseView {
     }
 
     /**
-     * 触摸事件
+     * Touch event
      * @param event
      * @return
      */
@@ -150,10 +150,10 @@ public class EndView extends BaseView {
     public void drawSelf() {
         try {
             canvas = sfh.lockCanvas();
-            canvas.drawColor(Color.BLACK);                        // 颜色
+            canvas.drawColor(Color.BLACK);                        // Color
             canvas.save();
-            canvas.scale(scalex, scaley, 0, 0);                    // 缩放
-            canvas.drawBitmap(background, 0, 0, paint);        // 图片
+            canvas.scale(scalex, scaley, 0, 0);                    // Zoom
+            canvas.drawBitmap(background, 0, 0, paint);        // picture
             canvas.restore();
             if (isBtChange) {
                 canvas.drawBitmap(button2, button_x, button_y, paint);

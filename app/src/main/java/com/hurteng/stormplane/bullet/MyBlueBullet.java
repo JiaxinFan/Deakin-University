@@ -10,10 +10,10 @@ import com.hurteng.stormplane.myplane.R;
 import com.hurteng.stormplane.object.GameObject;
 
 /**
- * 我方机体的蓝色激光粒子弹
+ * Blue laser particle bomb of our body
  */
 public class MyBlueBullet extends Bullet {
-    private Bitmap bullet;         // 子弹图片
+    private Bitmap bullet;         // Bullet picture
 
     public MyBlueBullet(Resources resources) {
         super(resources);
@@ -54,7 +54,7 @@ public class MyBlueBullet extends Bullet {
     }
 
     /**
-     * 子弹移动逻辑
+     * Bullet movement logic
      */
     @Override
     public void logic() {

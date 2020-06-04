@@ -32,81 +32,81 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 游戏进行的主界面
+ * The main interface of the game
  */
 @SuppressLint("ViewConstructor")
 public class MainView extends BaseView {
-	private int missileCount; // 导弹的数量
-	private int middlePlaneScore; // 中型敌机的积分
-	private int bigPlaneScore; // 大型敌机的积分
-	private int bossPlaneScore; // boss型敌机的积分
-	private int missileScore; // 导弹的积分
-	private int lifeScore; // 生命的积分
-	private int bulletScore; // 子弹的积分
-	private int bulletScore2; // 子弹2的积分
-	private int sumScore; // 游戏总得分
-	private static int speedTime; // 游戏速度的倍数
-	private float bg_y; // 图片的坐标
+	private int missileCount; // Number of missiles
+	private int middlePlaneScore; // Points for medium enemy aircraft
+	private int bigPlaneScore; // Points for large enemy aircraft
+	private int bossPlaneScore; // Boss enemy points
+	private int missileScore; // Missile Points
+	private int lifeScore; // Points of life
+	private int bulletScore; // Bullet points
+	private int bulletScore2; // Bullet 2 points
+	private int sumScore; // Total game score
+	private static int speedTime; // Multiple of game speed
+	private float bg_y; // Picture coordinates
 	private float bg_y2;
 	private float play_bt_w;
 	private float play_bt_h;
 	private float missile_bt_y;
-	private boolean isPlay; // 标记游戏运行状态
-	private boolean isTouchPlane; // 判断玩家是否按下屏幕
+	private boolean isPlay; // Mark game running status
+	private boolean isTouchPlane; // Determine whether the player presses the screen
 
-	private Bitmap background; // 背景图片
-	private Bitmap background2; // 背景图片
-	private Bitmap playButton; // 开始/暂停游戏的按钮图片
-	private Bitmap missile_bt; // 导弹按钮图标
-	private Bitmap life_amount;// 生命总数图标
-	private Bitmap boom;// 爆炸效果图
-	private Bitmap plane_shield;// 防护盾效果图
+	private Bitmap background; // Background picture
+	private Bitmap background2; // Background picture
+	private Bitmap playButton; // Picture of the button to start/pause the game
+	private Bitmap missile_bt; // Missile button icon
+	private Bitmap life_amount;// Total Life icon
+	private Bitmap boom;// Explosion rendering
+	private Bitmap plane_shield;// Protective shield renderings
 
-	private MyPlane myPlane; // 玩家的飞机
-	private BossPlane bossPlane; // boss飞机
+	private MyPlane myPlane; // Player's plane
+	private BossPlane bossPlane; // boss plane
 	private List<EnemyPlane> enemyPlanes;
 	private MissileGoods missileGoods;
-	private LifeGoods lifeGoods; // 生命物品
+	private LifeGoods lifeGoods; // Life item
 	private PurpleBulletGoods purpleBulletGoods;
-	private RedBulletGoods redBulletGoods; // 子弹2
+	private RedBulletGoods redBulletGoods; // Bullet 2
 
-	private int mLifeAmount;// 生命总数
+	private int mLifeAmount;// Total life
 	private GameObjectFactory factory;
-	private MediaPlayer mMediaPlayer; // 用来实现背景音乐播放
+	private MediaPlayer mMediaPlayer; // Used to achieve background music playback
 
-	private List<BigPlane> bigPlanes;// 大型机集合,用于实现子弹的遍历
+	private List<BigPlane> bigPlanes;// Mainframe collection for bullet traversal
 	
-	private int bossAppearAgain_score;//boss重新出现需要的积分
+	private int bossAppearAgain_score;//The boss reappears the required points
 	
 	public MainView(Context context, GameSoundPool sounds) {
 		super(context, sounds);
 		isPlay = true;
 		
 		speedTime = GameConstant.GAMESPEED;
-		mLifeAmount = GameConstant.LIFEAMOUNT;// 初始生命值
-		missileCount = GameConstant.MISSILECOUNT;// 初始导弹数
+		mLifeAmount = GameConstant.LIFEAMOUNT;// Initial health
+		missileCount = GameConstant.MISSILECOUNT;// Initial missile number
 
-		// 背景音乐
+		// Background music
 		mMediaPlayer = MediaPlayer.create(mainActivity, R.raw.game);
 		mMediaPlayer.setLooping(true);
 		if (!mMediaPlayer.isPlaying()) {
 			mMediaPlayer.start();
 		}
 
-		factory = new GameObjectFactory(); // 工厂类
-		bigPlanes = new ArrayList<BigPlane>(); // 大型机集合
-		enemyPlanes = new ArrayList<EnemyPlane>();// 敌机集合
-		myPlane = (MyPlane) factory.createMyPlane(getResources());// 生产玩家的飞机
+		factory = new GameObjectFactory(); // Factory
+		bigPlanes = new ArrayList<BigPlane>(); // Mainframe collection
+		enemyPlanes = new ArrayList<EnemyPlane>();// Enemy collection
+		myPlane = (MyPlane) factory.createMyPlane(getResources());// Production player's aircraft
 		myPlane.setMainView(this);
 
 		for (int i = 0; i < SmallPlane.sumCount; i++) {
-			// 生产小型敌机
+			// Production of small enemy aircraft
 			SmallPlane smallPlane = (SmallPlane) factory
 					.createSmallPlane(getResources());
 			enemyPlanes.add(smallPlane);
 		}
 		for (int i = 0; i < MiddlePlane.sumCount; i++) {
-			// 生产中型敌机
+			// Production of medium-sized enemy aircraft
 			MiddlePlane middlePlane = (MiddlePlane) factory
 					.createMiddlePlane(getResources());
 			enemyPlanes.add(middlePlane);
@@ -119,16 +119,16 @@ public class MainView extends BaseView {
 
 			bigPlanes.add(bigPlane);
 		}
-		// 生产BOSS敌机
+		// Production of BOSS enemy aircraft
 		bossPlane = (BossPlane) factory.createBossPlane(getResources());
 		bossPlane.setMyPlane(myPlane);
 		enemyPlanes.add(bossPlane);
-		// 生产导弹物品
+		// Production of missile items
 		missileGoods = (MissileGoods) factory
 				.createMissileGoods(getResources());
-		// 生产生命物品
+		// Production of life goods
 		lifeGoods = (LifeGoods) factory.createLifeGoods(getResources());
-		// 生产子弹物品
+		// Produce bullet items
 		purpleBulletGoods = (PurpleBulletGoods) factory
 				.createPurpleBulletGoods(getResources());
 		redBulletGoods = (RedBulletGoods) factory
@@ -136,17 +136,17 @@ public class MainView extends BaseView {
 		thread = new Thread(this);
 	}
 
-	// 视图改变的方法
+	// How to change the view
 	@Override
 	public void surfaceChanged(SurfaceHolder arg0, int arg1, int arg2, int arg3) {
 		super.surfaceChanged(arg0, arg1, arg2, arg3);
 	}
 
-	// 视图创建的方法
+	// View creation method
 	@Override
 	public void surfaceCreated(SurfaceHolder arg0) {
 		super.surfaceCreated(arg0);
-		initBitmap(); // 初始化图片资源
+		initBitmap(); // Initialize image resources
 		for (GameObject obj : enemyPlanes) {
 			obj.setScreenWH(screen_width, screen_height);
 		}
@@ -166,15 +166,15 @@ public class MainView extends BaseView {
 		}
 	}
 
-	// 视图销毁的方法
+	// View destruction method
 	@Override
 	public void surfaceDestroyed(SurfaceHolder arg0) {
 		super.surfaceDestroyed(arg0);
-		release();// 释放资源
+		release();// Free up resources
 		mMediaPlayer.stop();
 	}
 
-	// 响应触屏事件的方法
+	// Method of responding to touch screen events
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		if (event.getAction() == MotionEvent.ACTION_UP) {
@@ -194,7 +194,7 @@ public class MainView extends BaseView {
 				}
 				return true;
 			}
-			// 判断玩家飞机是否被按下
+			// Determine if the player's plane is pressed
 			else if (x > myPlane.getObject_x()
 					&& x < myPlane.getObject_x() + myPlane.getObject_width()
 					&& y > myPlane.getObject_y()
@@ -204,7 +204,7 @@ public class MainView extends BaseView {
 				}
 				return true;
 			}
-			// 判断导弹按钮是否被按下
+			// Determine if the missile button is pressed
 			else if (x > 10 && x < 10 + missile_bt.getWidth()
 					&& y > missile_bt_y
 					&& y < missile_bt_y + missile_bt.getHeight()) {
@@ -215,14 +215,14 @@ public class MainView extends BaseView {
 
 					for (EnemyPlane pobj : enemyPlanes) {
 						if (pobj.isCanCollide()) {
-							pobj.attacked(GameConstant.MISSILE_HARM); // 敌机增加伤害
+							pobj.attacked(GameConstant.MISSILE_HARM); // Enemy aircraft increases damage
 							if (pobj.isExplosion()) {
-								addGameScore(pobj.getScore());// 获得分数
+								addGameScore(pobj.getScore());// Get score
 							}
 						}
 					}
 
-					// 此线程不能放在绘图函数中，否则当处于无敌状态或者导弹连续按下时，爆炸效果无法显现
+					// This thread cannot be placed in the drawing function, otherwise when in invincible state or the missile is continuously pressed, the explosion effect cannot be displayed
 					new Thread(new Runnable() {
 
 						@Override
@@ -242,10 +242,10 @@ public class MainView extends BaseView {
 				return true;
 			}
 		}
-		// 响应手指在屏幕移动的事件
+		// Respond to events where your finger moves on the screen
 		else if (event.getAction() == MotionEvent.ACTION_MOVE
 				&& event.getPointerCount() == 1) {
-			// 判断触摸点是否为玩家的飞机
+			// Determine if the touch point is the player's plane
 			if (isTouchPlane) {
 				float x = event.getX();
 				float y = event.getY();
@@ -277,7 +277,7 @@ public class MainView extends BaseView {
 		return false;
 	}
 
-	// 初始化图片资源方法
+	// Initialize image resource method
 	@Override
 	public void initBitmap() {
 		playButton = BitmapFactory.decodeResource(getResources(),
@@ -305,17 +305,17 @@ public class MainView extends BaseView {
 
 	}
 
-	// 初始化游戏对象
+	// Initialize game object
 	public void initObject() {
 		for (EnemyPlane obj : enemyPlanes) {
-			// 初始化小型敌机
+			// Initialize small enemy aircraft
 			if (obj instanceof SmallPlane) {
 				if (!obj.isAlive()) {
 					obj.initial(speedTime, 0, 0);
 					break;
 				}
 			}
-			// 初始化中型敌机
+			// Initialize medium enemy aircraft
 			else if (obj instanceof MiddlePlane) {
 				if (middlePlaneScore >= GameConstant.MIDDLEPLANE_APPEARSCORE) {
 					if (!obj.isAlive()) {
@@ -324,7 +324,7 @@ public class MainView extends BaseView {
 					}
 				}
 			}
-			// 初始化大型敌机
+			// Initialize large enemy aircraft
 			else if (obj instanceof BigPlane) {
 				if (bigPlaneScore >= GameConstant.BIGPLANE_APPEARSCORE) {
 					if (!obj.isAlive()) {
@@ -333,7 +333,7 @@ public class MainView extends BaseView {
 					}
 				}
 			}
-			// 初始化BOSS敌机
+			// Initialize BOSS enemy aircraft
 			else {
 				if (bossPlaneScore >= GameConstant.BOSSPLANE_APPEARSCORE) {
 					if (!obj.isAlive()) {
@@ -345,7 +345,7 @@ public class MainView extends BaseView {
 			}
 		}
 
-		// 初始化导弹物品
+		// Initialize missile items
 		if (missileScore >= GameConstant.MISSILE_APPEARSCORE) {
 			if (!missileGoods.isAlive()) {
 				missileScore = 0;
@@ -355,7 +355,7 @@ public class MainView extends BaseView {
 			}
 		}
 
-		// 初始化生命物品
+		// Initialize life items
 		if (lifeScore >= GameConstant.LIFE_APPEARSCORE) {
 			if (!lifeGoods.isAlive()) {
 				lifeScore = 0;
@@ -364,7 +364,7 @@ public class MainView extends BaseView {
 				}
 			}
 		}
-		// 初始化子弹1物品
+		// Initialize Bullet 1 item
 		if (bulletScore >= GameConstant.BULLET1_APPEARSCORE) {
 			if (!purpleBulletGoods.isAlive()) {
 				bulletScore = 0;
@@ -373,7 +373,7 @@ public class MainView extends BaseView {
 				}
 			}
 		}
-		// 初始化子弹2物品
+		// Initialize Bullet 2 items
 		if (bulletScore2 >= GameConstant.BULLET2_APPEARSCORE) {
 			if (!redBulletGoods.isAlive()) {
 				bulletScore2 = 0;
@@ -383,14 +383,14 @@ public class MainView extends BaseView {
 			}
 		}
 
-		// 初始化BOSS飞机的子弹
+		// Initialize the bullets of the BOSS aircraft
 		if (bossPlane.isAlive()) {
 			if (!myPlane.getMissileState()) {
 				bossPlane.initBullet();
 			}
 		}
 
-		// 初始化bigPlane的子弹，遍历所有大型机
+		// Initialize bigPlane bullets, traverse all mainframes
 		for (BigPlane big_plane : bigPlanes) {
 			if (big_plane.isAlive()) {
 				if (!myPlane.getMissileState()) {
@@ -400,14 +400,14 @@ public class MainView extends BaseView {
 		}
 
 		myPlane.isBulletOverTime();
-		myPlane.initBullet(); // 初始化玩家飞机的子弹
-		// 提升等级
+		myPlane.initBullet(); // Initialize the bullets of the player's plane
+		// Level up
 		if (sumScore >= speedTime * GameConstant.LEVELUP_SCORE && speedTime < GameConstant.MAXGRADE) {
 			speedTime++;
 		}
 	}
 
-	// 释放图片资源的方法
+	// How to release image resources
 	@Override
 	public void release() {
 		for (GameObject obj : enemyPlanes) {
@@ -443,19 +443,19 @@ public class MainView extends BaseView {
 		}
 	}
 
-	// 绘图方法
+	// Drawing method
 	@Override
 	public void drawSelf() {
 		try {
 			canvas = sfh.lockCanvas();
-			canvas.drawColor(Color.BLACK); // 绘制背景色
+			canvas.drawColor(Color.BLACK); // Paint background color
 			canvas.save();
-			// 计算背景图片与屏幕的比例
+			// Calculate the ratio of the background picture to the screen
 			canvas.scale(scalex, scaley, 0, 0);
-			canvas.drawBitmap(background, 0, bg_y, paint); // 绘制背景图
-			canvas.drawBitmap(background2, 0, bg_y2, paint); // 绘制背景图
+			canvas.drawBitmap(background, 0, bg_y, paint); // Draw a background image
+			canvas.drawBitmap(background2, 0, bg_y2, paint); // Draw a background image
 			canvas.restore();
-			// 绘制按钮
+			// Draw a Button
 			canvas.save();
 			canvas.clipRect(10, 10, 10 + play_bt_w, 10 + play_bt_h);
 			if (isPlay) {
@@ -465,15 +465,15 @@ public class MainView extends BaseView {
 			}
 			canvas.restore();
 
-			// 绘制积分文字
+			// Draw integral text
 			paint.setTextSize(40);
 			paint.setColor(Color.rgb(235, 161, 1));
 			canvas.drawText("积分:" + String.valueOf(sumScore), 30 + play_bt_w,
 					50, paint);
-			// 绘制等级
+			// Draw level
 			canvas.drawText("等级 X " + String.valueOf(speedTime),
 					screen_width - 160, 50, paint);
-			// 绘制生命数值
+			// Plotting life values
 			if (mLifeAmount > 0) {
 				paint.setColor(Color.BLACK);
 				canvas.drawBitmap(life_amount, screen_width - 150,
@@ -483,7 +483,7 @@ public class MainView extends BaseView {
 						screen_height - 25, paint);
 			}
 
-			// 绘制爆炸效果图
+			// Drawing an explosion effect picture
 			if (myPlane.getMissileState()) {
 				float boom_x = myPlane.getMiddle_x() - boom.getWidth() / 2;
 				float boom_y = myPlane.getMiddle_y() - boom.getHeight() / 2;
@@ -492,7 +492,7 @@ public class MainView extends BaseView {
 
 			}
 
-			// 绘制无敌防护效果图
+			// Draw invincible protection effect picture
 			if (myPlane.isInvincible() && !myPlane.getDamaged()) {
 				float plane_shield_x = myPlane.getMiddle_x() - plane_shield.getWidth() / 2;
 				float plane_shield_y = myPlane.getMiddle_y() - plane_shield.getHeight() / 2;
@@ -501,7 +501,7 @@ public class MainView extends BaseView {
 
 			}
 
-			// 绘制导弹按钮
+			// Draw missile button
 			if (missileCount > 0) {
 				paint.setTextSize(40);
 				paint.setColor(Color.BLACK);
@@ -510,7 +510,7 @@ public class MainView extends BaseView {
 						10 + missile_bt.getWidth(), screen_height - 25, paint);// 绘制文字
 			}
 
-			// 绘制导弹物品
+			// Draw missile items
 			if (missileGoods.isAlive()) {
 				if (missileGoods.isCollide(myPlane)) {
 					if (missileCount < GameConstant.MISSILE_MAXCOUNT) {
@@ -521,7 +521,7 @@ public class MainView extends BaseView {
 				} else
 					missileGoods.drawSelf(canvas);
 			}
-			// 绘制生命物品
+			// Draw life items
 			if (lifeGoods.isAlive()) {
 				if (lifeGoods.isCollide(myPlane)) {
 					if (mLifeAmount < GameConstant.LIFE_MAXCOUNT) {
@@ -532,7 +532,7 @@ public class MainView extends BaseView {
 				} else
 					lifeGoods.drawSelf(canvas);
 			}
-			// 绘制子弹物品
+			// Draw bullet items
 			if (purpleBulletGoods.isAlive()) {
 				if (purpleBulletGoods.isCollide(myPlane)) {
 					purpleBulletGoods.setAlive(false);
@@ -545,7 +545,7 @@ public class MainView extends BaseView {
 				} else
 					purpleBulletGoods.drawSelf(canvas);
 			}
-			// 绘制子弹2物品
+			// Draw bullet 2 items
 			if (redBulletGoods.isAlive()) {
 				if (redBulletGoods.isCollide(myPlane)) {
 					redBulletGoods.setAlive(false);
@@ -559,13 +559,13 @@ public class MainView extends BaseView {
 					redBulletGoods.drawSelf(canvas);
 			}
 
-			// 绘制敌机
+			// Draw enemy planes
 			for (EnemyPlane obj : enemyPlanes) {
 				if (obj.isAlive()) {
 					obj.drawSelf(canvas);
-					// 检测敌机是否与玩家的飞机碰撞
+					// Detect if the enemy plane collides with the player's plane
 					if (obj.isCanCollide() && myPlane.isAlive()) {
-						// 检测我方是否处于无敌状态或者导弹爆炸状态
+						// Check if our side is invincible or the missile is in explosive state
 						if (obj.isCollide(myPlane) && !myPlane.isInvincible()
 								&& !myPlane.getMissileState()) {
 							myPlane.setAlive(false);
@@ -574,9 +574,9 @@ public class MainView extends BaseView {
 				}
 			}
 			if (!myPlane.isAlive()) {
-				sounds.playSound(4, 0); // 飞机炸毁的音效
+				sounds.playSound(4, 0); // Sound effects of aircraft blowing up
 
-				// 判断生命总数，数值大于零则-1，直到生命总数小于零，Gameover
+				// Determine the total number of lives, the value is greater than zero then -1, until the total number of lives is less than zero，Gameover
 				if (mLifeAmount > 0) {
 					mLifeAmount--;
 					myPlane.setAlive(true);
@@ -593,11 +593,11 @@ public class MainView extends BaseView {
 
 				} else {
 					if (DebugConstant.ETERNAL) {
-						// 设置不死亡，供游戏测试使用
+						// Set not to die, for game testing
 						threadFlag = true;
 						myPlane.setAlive(true);
 
-						// 继续实现机体受损及闪光效果
+						// Continue to achieve body damage and flash effects
 						new Thread(new Runnable() {
 
 							@Override
@@ -610,7 +610,7 @@ public class MainView extends BaseView {
 						}).start();
 
 					} else {
-						// 正常情况，游戏结束,并停止音乐
+						// Normally, the game ends and the music stops
 						threadFlag = false;
 						if (mMediaPlayer.isPlaying()) {
 							mMediaPlayer.stop();
@@ -620,9 +620,9 @@ public class MainView extends BaseView {
 				}
 
 			}
-			myPlane.drawSelf(canvas); // 绘制玩家的飞机
+			myPlane.drawSelf(canvas); // Draw the player's plane
 			myPlane.shoot(canvas, enemyPlanes);
-			sounds.playSound(1, 0); // 子弹音效
+			sounds.playSound(1, 0); // Bullet sound effect
 
 		} catch (Exception err) {
 			err.printStackTrace();
@@ -632,7 +632,7 @@ public class MainView extends BaseView {
 		}
 	}
 
-	// 背景移动的逻辑函数
+	// Logical function of background movement
 	public void viewLogic() {
 		if (bg_y > bg_y2) {
 			bg_y += 10;
@@ -648,36 +648,36 @@ public class MainView extends BaseView {
 		}
 	}
 
-	// 增加游戏分数的方法
+	// Ways to increase game score
 	public void addGameScore(int score) {
-		middlePlaneScore += score; // 中型敌机的积分
-		bigPlaneScore += score; // 大型敌机的积分
-		bossPlaneScore += score; // boss型敌机的积分
-		missileScore += score; // 导弹的积分
-		lifeScore += score;// 生命的积分
-		bulletScore += score; // 子弹的积分
-		bulletScore2 += score; // 子弹的积分
-		sumScore += score; // 游戏总得分
+		middlePlaneScore += score; // Points for medium enemy aircraft
+		bigPlaneScore += score; // Points for large enemy aircraft
+		bossPlaneScore += score; // Boss enemy points
+		missileScore += score; // Missile Points
+		lifeScore += score;// Points of life
+		bulletScore += score; // Bullet points
+		bulletScore2 += score; // Bullet points
+		sumScore += score; // Total game score
 		
 	}
 
-	// 播放音效
+	// Play sound effects
 	public void playSound(int key) {
 		sounds.playSound(key, 0);
 	}
 
-	// 线程运行的方法
+	// Thread running method
 	@Override
 	public void run() {
 		while (threadFlag) {
 			long startTime = System.currentTimeMillis();
 			initObject();
 			drawSelf();
-			viewLogic(); // 背景移动的逻辑
+			viewLogic(); // The logic of background movement
 			long endTime = System.currentTimeMillis();
 
 			if (!isPlay) {
-				mMediaPlayer.pause();// 音乐暂停
+				mMediaPlayer.pause();// Music pause
 
 				synchronized (thread) {
 					try {

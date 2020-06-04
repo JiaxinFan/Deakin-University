@@ -11,12 +11,12 @@ import com.hurteng.stormplane.myplane.R;
 import java.util.Random;
 
 /**
- * 中型机
+ * Medium-sized machine
  */
 public class MiddlePlane extends EnemyPlane {
     private static int currentCount = 0;
     private Bitmap middlePlane;
-    public static int sumCount = GameConstant.MIDDLEPLANE_COUNT;             //	中型机的总数
+    public static int sumCount = GameConstant.MIDDLEPLANE_COUNT;             //	Total number of medium-sized machines
     private int direction;
 
     public MiddlePlane(Resources resources) {

@@ -6,7 +6,7 @@ import android.graphics.BitmapFactory;
 import com.hurteng.stormplane.myplane.R;
 
 /**
- * 红色弹药物品
+ * red bullet Goods
  */
 public class RedBulletGoods extends GameGoods {
 

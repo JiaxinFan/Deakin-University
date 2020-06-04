@@ -17,25 +17,25 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * 大型机
+ * Mainframe
  */
 public class BigPlane extends EnemyPlane {
-	private static int currentCount = 0; // 对象当前的数量
-	public static int sumCount = GameConstant.BIGPLANE_COUNT; // 总数量
-	private Bitmap bigPlane; // 大型机图片
+	private static int currentCount = 0; // The current number of objects
+	public static int sumCount = GameConstant.BIGPLANE_COUNT; // The total amount
+	private Bitmap bigPlane; // Mainframe pictures
 	private int direction;
-	private boolean isFire; // 是否允许射击
-	private List<Bullet> bullets; // 子弹类
+	private boolean isFire; // Whether to allow shooting
+	private List<Bullet> bullets; // Bullet
 	private MyPlane myplane;
-	private int interval; // 发射子弹的间隔
+	private int interval; // Bullet firing interval
 
 	public BigPlane(Resources resources) {
 		super(resources);
-		this.score = GameConstant.BIGPLANE_SCORE; // 大型机的分数
+		this.score = GameConstant.BIGPLANE_SCORE; // Mainframe score
 
 		interval = 1;
 		bullets = new ArrayList<Bullet>();
-		// 创建机体
+		// Create a body
 		GameObjectFactory factory = new GameObjectFactory();
 		for (int i = 0; i < 3; i++) {
 			BigPlaneBullet bullet = (BigPlaneBullet) factory
@@ -76,7 +76,7 @@ public class BigPlane extends EnemyPlane {
 		if (isAlive) {
 
 			if (!isExplosion) {
-				// 速度倍率大于3，则变红色状态
+				// If the speed ratio is greater than 3, it will turn red
 				if (speedTime > 3) {
 					canvas.save();
 					canvas.clipRect(object_x, object_y,
@@ -94,7 +94,7 @@ public class BigPlane extends EnemyPlane {
 					canvas.restore();
 				}
 				logic();
-				shoot(canvas); // 射击
+				shoot(canvas); // shooting
 			} else {
 				int y = (int) (currentFrame * object_height); // ��õ�ǰ֡�����λͼ��Y����
 				canvas.save();
@@ -112,7 +112,7 @@ public class BigPlane extends EnemyPlane {
 		}
 	}
 
-	//初始化子弹数据
+	//Initialize bullet data
 		@Override
 		public void setScreenWH(float screen_width,float screen_height){
 			super.setScreenWH(screen_width, screen_height);
@@ -121,14 +121,14 @@ public class BigPlane extends EnemyPlane {
 			}
 		}
 	
-	// 初始化子弹对象
+	// Initialize the bullet object
 	public void initBullet() {
 		
 		if (isFire) {
 			if (interval == 1) {
 				for (GameObject obj : bullets) {
 					if (!obj.isAlive()) {
-						//给子弹设置发射初始坐标，重要！！
+						//It is important to set the initial launch coordinates for the bullet! !
 						obj.initial(0, object_x + object_width / 2,
 								object_y + object_height*2/3);
 						break;
@@ -145,15 +145,15 @@ public class BigPlane extends EnemyPlane {
 		
 	}
 
-	// 发射子弹
+	// Fire bullets
 	public boolean shoot(Canvas canvas) {
-		//如果我方引爆了导弹，敌方当前子弹消失，并且不能继续射击
+		//If our side detonated the missile, the enemy’s current bullet disappeared and could not continue firing
 		if (isFire && !myplane.getMissileState()) {
-			// 遍历子弹的对象
+			// Traverse the bullet object
 			for (Bullet obj : bullets) {
 				if (obj.isAlive()) {
-					obj.drawSelf(canvas);// 绘制子弹
-					//我方处于无敌模式时，敌方可以继续射击，但无法对我方机体造成伤害
+					obj.drawSelf(canvas);// Draw bullets
+					//When our side is in invincible mode, the enemy can continue to shoot, but cannot cause damage to our body
 					if (obj.isCollide(myplane) && !myplane.isInvincible()) {
 						myplane.setAlive(false);
 						return true;
@@ -164,7 +164,7 @@ public class BigPlane extends EnemyPlane {
 		return false;
 	}
 
-	// 将我方机体设置进来
+	// Set up our body
 	public void setMyPlane(MyPlane myplane) {
 		this.myplane = myplane;
 	}
@@ -199,7 +199,7 @@ public class BigPlane extends EnemyPlane {
 
 	}
 
-	// 释放资源
+	// Free up resources
 	@Override
 	public void release() {
 		if (!bigPlane.isRecycled()) {

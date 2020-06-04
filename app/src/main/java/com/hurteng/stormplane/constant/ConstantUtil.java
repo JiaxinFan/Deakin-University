@@ -1,7 +1,7 @@
 package com.hurteng.stormplane.constant;
 
 public interface ConstantUtil {
-    // 物品的方向常量
+    // directions of goods
     int DIR_LEFT_UP = 1;
     int DIR_RIGHT_UP = 2;
     int DIR_LEFT_DOWN = 3;
@@ -16,12 +16,12 @@ public interface ConstantUtil {
     int DIR_DOWN = 11;
     int DIR_TEMP = 12;
 
-    // 我方子弹类型
+    // types of our plane's bullets
     int MYBULLET = 100;
     int MYBULLET1 = 101;
     int MYBULLET2 = 102;
 
-    // boss子弹类型
+    // types of boss bullets
     int BOSSBULLET_DEFAULT = 110;
     int BOSSBULLET_ANGER = 111;
     int BOSSBULLET_CRAZY = 112;

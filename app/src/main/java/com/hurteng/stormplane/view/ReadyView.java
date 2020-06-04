@@ -18,7 +18,7 @@ import com.hurteng.stormplane.myplane.R;
 import com.hurteng.stormplane.sounds.GameSoundPool;
 
 /**
- * 开始游戏的界面
+ * The interface to start the game
  */
 @SuppressLint("ViewConstructor")
 public class ReadyView extends BaseView {
@@ -37,14 +37,14 @@ public class ReadyView extends BaseView {
     private String startGame = "Start";
     private String exitGame = "Quit";
     private String version = "Chenjue&Jiaxin";
-    private float version_width;//版本信息宽度
-    private float version_height;//版本信息长度
+    private float version_width;//Version information width
+    private float version_height;//Version information length
 
-    private Bitmap text;                    // 文字
-    private Bitmap button;                    // 按钮1
-    private Bitmap button2;                    // 按钮2
-    private Bitmap planefly;                // 飞机图片
-    private Bitmap background;                // 背景图
+    private Bitmap text;                    // Text
+    private Bitmap button;                    // Button1
+    private Bitmap button2;                    // Button2
+    private Bitmap planefly;                // plane picture
+    private Bitmap background;                // Background image
     private Rect rect;
 
     public ReadyView(Context context, GameSoundPool sounds) {
@@ -141,11 +141,11 @@ public class ReadyView extends BaseView {
         button_x = screen_width / 2 - button.getWidth() / 2;
         button_y = screen_height / 2 + button.getHeight();
         button_y2 = button_y + button.getHeight() + 40;
-        // 返回包围整个字符串的最小的一个Rect区域
+        // Returns the smallest Rect area surrounding the entire string
         paint.getTextBounds(startGame, 0, startGame.length(), rect);
         strwid = rect.width();
         strhei = rect.height();
-        // 返回包围整个版本信息字符串的最小的一个Rect区域
+        // Returns the smallest Rect area surrounding the entire version information string
         paint.getTextBounds(version, 0, version.length(), rect);
         version_width = rect.width();
         version_height = rect.height();
@@ -191,20 +191,20 @@ public class ReadyView extends BaseView {
                 canvas.drawBitmap(button, button_x, button_y2, paint);
             }
 
-            //开始游戏的按钮
+            //Button to start the game
             paint.setColor(Color.BLACK);
             canvas.drawText(startGame, screen_width / 2 - strwid / 2, button_y
                     + button.getHeight() / 2 + strhei / 2, paint);
-            //退出游戏的按钮
+            //Exit button
             canvas.drawText(exitGame, screen_width / 2 - strwid / 2, button_y2
                     + button.getHeight() / 2 + strhei / 2, paint);
 
-            //版本信息的内容
+            //Content of version information
             paint.setColor(Color.rgb(235, 161, 1));
             canvas.drawText(version, screen_width / 2 - version_width / 2,
                     button_y / 2 + text_y / 2 + text.getHeight() / 2, paint);
 
-            //飞机飞行的动画
+            //Animation of airplane flight
             canvas.save();
             canvas.clipRect(fly_x, fly_y, fly_x + planefly.getWidth(), fly_y + fly_height);
             canvas.drawBitmap(planefly, fly_x, fly_y - currentFrame * fly_height, paint);
